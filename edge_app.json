@@ -1,0 +1,16 @@
+{
+  "category": "integration",
+  "description": "# Edge app Shelly Integration\n\nThis is an app that adds possibility to use Shelly devices connected to an edge\nclient.\n\nThis app is not complete and at the moment there are only a few devices working.\n\n| Device name | Model name |\n|-------------|------------|\n| Plug-S      | `SHPLG-S`  |\n| Motion      | `SHMOS-01` |\n\n## Configuration of Shelly device\n\nThe app uses the edge-clients build in MQTT broker for connections with the\nShelly devices. These devices need to connect to the Edge Client MQTT broker on\nport 1883 (unsecured). The MQTT settings need to be done in the Web interface\nfor the device by adding the IP or hostname of the broker. Make sure that the\nbroker is running and listening on the same network range as the edge client.\n\nWhen Shelly devices connect to the broker they \"announce\" their presence. This\nmessage is used to add the device and functions as needed. If the Shelly device\nis restarted the app will once again check that all functions are created\ncorrectly.",
+  "name": "Shelly Integration",
+  "public": true,
+  "publisher": {
+    "id": 1
+  },
+  "short_description": "Integration for Shelly devices",
+  "source_url": "",
+  "tags": [
+    "integration",
+    "shelly",
+    "wifi"
+  ]
+}
