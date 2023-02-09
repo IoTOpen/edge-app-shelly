@@ -14,16 +14,13 @@ local function matchCriteria(fn, criteria)
                 if fn.id ~= v then
                     return false
                 end
-            end
-            if k == 'type' then
-                if fn.type:match('^' .. v .. '$') == nil then
+            elseif k == 'type' then
+                if fn.type ~= v then
                     return false
                 end
-            end
-            if fn.meta[k] == nil then
+            elseif fn.meta[k] == nil then
                 return false
-            end
-            if fn.meta[k] ~= v then
+            elseif fn.meta[k] ~= v then
                 return false
             end
         end
@@ -309,21 +306,18 @@ function onLynxMessage(topic, payload, retained)
 
     local data = json:decode(payload)
     local topic = "shellies/" .. fn.meta["shelly.id"] .. "/relay/0/command"
-    local val = "off"
-    if data.value == 1 then val = "on" end
+    local val
+    if data.value == tonumber(fn.meta.state_on) then
+        val = "on"
+    elseif data.value == tonumber(fn.meta.state_off) then
+        val = "off"
+    else
+        return
+    end
     mq:pub(topic, val, false, 0)
 end
 
 -- State handling
-
-function onCreate()
-
-end
-
-function onDestroy()
-
-end
-
 function onStart()
     mq:bind("shellies/+/announce", onAnnounce)
     mq:bind("shellies/+/#", onShellyMessage)
